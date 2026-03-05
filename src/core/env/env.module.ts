@@ -20,7 +20,7 @@ const validationSchema = Joi.object({
     ConfigModule.forRoot({
       cache: true,
       isGlobal: true,
-      ignoreEnvFile: false,
+      ignoreEnvFile: true,
       validationSchema: validationSchema,
     }),
   ],
