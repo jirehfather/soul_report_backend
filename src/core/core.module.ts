@@ -3,6 +3,6 @@ import { EnvModule } from './env/env.module';
 import { MikroModule } from './database/mikro.module';
 
 @Module({
-  imports: [EnvModule, MikroModule],
+  imports: [EnvModule, MikroModule.forRoot()],
 })
 export class CoreModule {}
