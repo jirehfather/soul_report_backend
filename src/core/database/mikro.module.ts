@@ -58,8 +58,8 @@ export const generatePgOption: MikroOrmModuleOptions<PostgreSqlDriver> = {
     tableName: 'soul_report_migrations',
     emit: 'ts',
     disableForeignKeys: false,
-    path: 'dist/migrations',
-    pathTs: 'src/migrations',
+    path: 'dist/migrations/*.js',
+    pathTs: 'src/migrations/*.ts',
   },
 
   /**
