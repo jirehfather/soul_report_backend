@@ -1,4 +1,4 @@
-import { Migrator } from '@mikro-orm/migrations';
+import { Migrator, TSMigrationGenerator } from '@mikro-orm/migrations';
 import {
   MaybePromise,
   MikroOrmModule,
@@ -58,8 +58,10 @@ export const generatePgOption: MikroOrmModuleOptions<PostgreSqlDriver> = {
     tableName: 'soul_report_migrations',
     emit: 'ts',
     disableForeignKeys: false,
-    path: 'dist/migrations/*.js',
-    pathTs: 'src/migrations/*.ts',
+    path: 'dist/migrations',
+    pathTs: 'src/migrations',
+    glob: '!(*.d).{js,ts,cjs}',
+    generator: TSMigrationGenerator,
   },
 
   /**
