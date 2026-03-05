@@ -78,7 +78,7 @@ export const generatePgOption: MikroOrmModuleOptions<PostgreSqlDriver> = {
   forceEntityConstructor: false,
 
   // * 동기화 SubScribe
-  schema: 'soul_report',
+  // schema: 'soul_report',
 };
 export default generatePgOption;
 
