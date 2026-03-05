@@ -15,7 +15,7 @@ export class AppModule {
   constructor(private readonly orm: MikroORM) {}
 
   async onModuleInit(): Promise<void> {
-    // await this.orm.migrator.up();
+    await this.orm.migrator.up();
   }
 
   async onApplicationShutdown(signal?: string) {
