@@ -11,16 +11,16 @@ export class CoreModule {
 
   constructor(private readonly orm: MikroORM) {}
 
-  // async onModuleInit(): Promise<void> {
-  //   this.logger.log(`Start MikroORM Migration...`);
-  //   try {
-  //     await this.orm.migrator.up();
-  //   } catch (error) {
-  //     this.logger.error(`MikroORM Migration Failed.`, error);
-  //     throw error;
-  //   }
-  //   this.logger.log(`MikroORM Migration Completed.`);
-  // }
+  async onModuleInit(): Promise<void> {
+    this.logger.log(`Start MikroORM Migration...`);
+    try {
+      await this.orm.migrator.up();
+    } catch (error) {
+      this.logger.error(`MikroORM Migration Failed.`, error);
+      throw error;
+    }
+    this.logger.log(`MikroORM Migration Completed.`);
+  }
 
   async onApplicationShutdown(signal?: string) {
     this.logger.log(`Start Shut Down Graceful with ${signal}`);
