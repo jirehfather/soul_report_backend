@@ -1,10 +1,11 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
-import { v4 } from 'uuid';
+import { v7 } from 'uuid';
+import { AbstractBaseTimeEntity } from '../abstracts/abstract_base_time.entity';
 
 @Entity({ tableName: 'churches' })
-export class Church {
+export class Church extends AbstractBaseTimeEntity {
   @PrimaryKey({ type: 'uuid' })
-  id: string = v4();
+  id: string = v7();
 
   @Property()
   name!: string;
@@ -17,10 +18,4 @@ export class Church {
 
   @Property({ default: true })
   isActive: boolean = true;
-
-  @Property()
-  createdAt: Date = new Date();
-
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
 }

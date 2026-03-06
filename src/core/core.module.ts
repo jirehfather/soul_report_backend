@@ -1,10 +1,20 @@
-import { Logger, Module } from '@nestjs/common';
-import { EnvModule } from './env/env.module';
-import { MikroModule } from './database/mikro.module';
 import { MikroORM } from '@mikro-orm/postgresql';
+import { Logger, Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { MikroModule } from './database/mikro.module';
+import { AppConfigModule } from './config/config.module';
+import { AuthorizationGuard } from './guards/authorization.guard';
+import { SessionServiceModule } from 'src/lib/services/session/session_service.module';
+import { UserServiceModule } from 'src/lib/services/user/user_service.module';
 
 @Module({
-  imports: [EnvModule, MikroModule.forRoot()],
+  imports: [
+    AppConfigModule,
+    MikroModule.forRoot(),
+    SessionServiceModule,
+    UserServiceModule,
+  ],
+  providers: [{ provide: APP_GUARD, useClass: AuthorizationGuard }],
 })
 export class CoreModule {
   private readonly logger: Logger = new Logger(CoreModule.name);

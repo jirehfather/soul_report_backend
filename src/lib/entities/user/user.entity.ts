@@ -6,16 +6,18 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { v4 } from 'uuid';
-import { Role } from '../enums/role.enum';
-import { UserStatus } from '../enums/user_status.enum';
-import { Church } from './church.entity';
+import * as bcrypt from 'bcryptjs';
+import { Role } from 'src/lib/enums/role.enum';
+import { UserStatus } from 'src/lib/enums/user_status.enum';
+import { v7 } from 'uuid';
+import { AbstractBaseTimeEntity } from '../abstracts/abstract_base_time.entity';
+import { Church } from '../church/church.entity';
 import { UserProfile } from './user_profile.entity';
 
 @Entity({ tableName: 'users' })
-export class User {
+export class User extends AbstractBaseTimeEntity {
   @PrimaryKey({ type: 'uuid' })
-  id: string = v4();
+  id: string = v7();
 
   @ManyToOne(() => Church)
   church!: Church;
@@ -32,15 +34,13 @@ export class User {
   @Enum({ items: () => UserStatus, default: UserStatus.ACTIVE })
   status: UserStatus = UserStatus.ACTIVE;
 
-  @Property()
-  createdAt: Date = new Date();
-
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
-
   @OneToOne(() => UserProfile, (profile) => profile.user, {
     owner: false,
     nullable: true,
   })
   profile: UserProfile | null = null;
+
+  verify(password: string): boolean {
+    return bcrypt.compareSync(password, this.passwordHash);
+  }
 }

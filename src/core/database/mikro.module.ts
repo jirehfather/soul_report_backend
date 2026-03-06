@@ -37,8 +37,8 @@ export const generatePgOption: MikroOrmModuleOptions<PostgreSqlDriver> = {
   debug: process.env.NODE_ENV === 'development' ? true : false,
 
   // * ORM Entities Path
-  entities: ['dist/lib/entities/!(abstract)*.entity.js'],
-  entitiesTs: ['src/lib/entities/!(abstract)*.entity.ts'],
+  entities: ['dist/lib/entities/*/!(abstract)*.entity.js'],
+  entitiesTs: ['src/lib/entities/*/!(abstract)*.entity.ts'],
 
   // * One To Many Setting (One To One일 때 연관관계의 주인을 조회 할 때 자동으로 Join 할 것인지)
   autoJoinOneToOneOwner: false,
@@ -79,7 +79,6 @@ export const generatePgOption: MikroOrmModuleOptions<PostgreSqlDriver> = {
   // * 생성자 필수 호출
   forceEntityConstructor: false,
 
-  // * 동기화 SubScribe
   // schema: 'soul_report',
 };
 export default generatePgOption;

@@ -25,4 +25,4 @@ const validationSchema = Joi.object({
     }),
   ],
 })
-export class EnvModule {}
+export class AppConfigModule {}

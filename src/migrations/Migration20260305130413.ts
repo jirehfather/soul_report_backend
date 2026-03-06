@@ -50,11 +50,13 @@ export class Migration20260305130413 extends Migration {
 
       -- [User_Profiles] 유저 부가 정보 (1:1 관계)
       CREATE TABLE user_profiles (
-          user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+          id UUID PRIMARY KEY,
+          user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
           nickname VARCHAR(50),
           avatar_url TEXT,
           bio TEXT, -- 자기소개/상태메시지
           phone_number VARCHAR(20),
+          created_at TIMESTAMP WITH TIME ZONE NOT NULL,
           updated_at TIMESTAMP WITH TIME ZONE NOT NULL
       );
 
@@ -66,7 +68,8 @@ export class Migration20260305130413 extends Migration {
           user_agent TEXT,
           ip_address VARCHAR(45),
           expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
-          created_at TIMESTAMP WITH TIME ZONE NOT NULL
+          created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+          updated_at TIMESTAMP WITH TIME ZONE NOT NULL
       );
 
 
